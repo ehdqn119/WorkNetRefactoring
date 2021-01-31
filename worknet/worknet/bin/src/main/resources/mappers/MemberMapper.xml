@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kmu.worknet.member.mappers.MemberMapper">
+	<!-- 멤버 아이디 검증 -->
+	<select id="findByuser" resultType="com.kmu.worknet.member.domain.MemberDetails">
+		SELECT *
+		FROM member
+		WHERE memId = #{username}
+		;
+	</select>
+	
+	<insert id="signUp">
+		INSERT INTO MEMBER(memId, memPw, authoritie, email, name, date, gender, phone)
+		VALUES (
+					#{memId}, 
+					#{memPw}, 
+					'ROLE_MEMBER', 
+					#{email}, 
+					#{name}, 
+					#{date}, 
+					#{gender}, 
+					#{phone}
+				)
+		;
+	</insert>
+	<select id="findByMemberSeq" resultType="int">
+		SELECT memSeq
+		FROM member
+		WHERE memId = #{memid}
+		;
+	</select>
+	
+	
+</mapper>

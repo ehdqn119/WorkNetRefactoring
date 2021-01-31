@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kmu.worknet.job.mappers.mapper">
+	<!-- 공통 sql 구문 -->
+	<!-- 카테고리 서칭을 위한 공통 sql 공용 -->
+	<sql id="categorySearch">
+		<if test="allList.wantedTitleList != null ">
+			AND wantedTitle LIKE CONCAT('%',#{allList.wantedTitleList[0]},'%')
+		</if>
+		<if test="allList.busiSizeList != null ">
+			AND busiSize IN
+			<foreach collection="allList.busiSizeList" item="busi"
+				open="(" separator="," close=")">
+				#{busi}
+			</foreach>
+		</if>
+		
+		<if test="allList.workRegionList != null ">
+			AND ( workRegion LIKE
+			<foreach collection="allList.workRegionList" item="region"
+				separator="OR workRegion LIKE">
+				CONCAT('%',#{region},'%')
+			</foreach>
+			)
+		</if>
+		<if test="allList.eduNmList != null ">
+			AND ( eduNm LIKE
+			<foreach collection="allList.eduNmList" item="edu"
+				separator="OR eduNm LIKE">
+				CONCAT('%',#{edu},'%')
+			</foreach>
+			)
+		</if>
+		<!-- <if test="allList.enterTpNmList != null"> -->
+		<!-- <choose> -->
+		<!-- <when test="allList.eduNmList == null">WHERE</when> -->
+		<!-- <otherwise>AND</otherwise> -->
+		<!-- </choose> enterTpNm LIKE -->
+		<!-- <foreach collection="allList.enterTpNmList" item="enter" separator="OR 
+			enterTpNm LIKE"> -->
+		<!-- CONCAT('%',#{enter},'%') -->
+		<!-- AND enterTpNm LIKE CONCAT('%',#{minMoney},'%') 이거 손봐야함(test 필요) -->
+		<!-- OR enterTpNm LIKE CONCAT('%',#{maxMoney},'%') 이거 손봐야함(test 필요) -->
+		<!-- </foreach> -->
+		<!-- </if> -->
+	</sql>
+
+	<!-- 전체 게시물 수 반환 공용 -->
+	<sql id="countTotalBoard">
+		SELECT count(*) AS totalBoard
+		FROM worknet_detail_2
+		WHERE isTrue = 1
+	</sql>
+
+	<!-- 메인, 카테고리 테이블에 띄우는 정보 반환 공용 -->
+	<sql id="simplePageView">
+		SELECT id, wantedAuthNo, corpNm, wantedTitle, salTpNm,
+		receiptCloseDt, workRegion
+		FROM worknet_detail_2
+		WHERE isTrue = 1
+	</sql>
+
+	<sql id="paging">
+		limit #{beginning}, #{pageRows}
+	</sql>
+	<!-- 공용 sql 구문 종단 -->
+
+	<!-- 전체 게시물 수 반환 -->
+	<select id="selectTotalBoard" resultType="int">
+		<include refid="countTotalBoard"></include>
+		;
+	</select>
+
+	<!-- 카테고리에서 검색된 게시물 수 반환 -->
+	<select id="selectCategoryTotalBoard" resultType="int">
+		<include refid="countTotalBoard"></include>
+		<include refid="categorySearch"></include>
+		;
+	</select>
+	<!-- 메인에서 보여줄 테이블들의 간략한 정보 반환 -->
+	<select id="selectJobList"
+		resultType="com.kmu.worknet.job.domain.Job">
+		<include refid="simplePageView"></include>
+		<include refid="paging"></include>
+		;
+	</select>
+
+	<!-- 추천리스트 반환 -->
+	<select id="selectRecomandJob" parameterType="int"
+		resultType="com.kmu.worknet.job.domain.Job">
+		SELECT  distinct(b.wantedAuthNo), b.corpNm, b.wantedTitle,
+		b.salTpNm, b.receiptCloseDt, b.workRegion, a.recRating, b.eduNm, b.busiSize
+		FROM worknet_detail_2 AS b
+		join member_based_recommend as a
+		on b.wantedAuthNo = a.wantedAuthNo
+		WHERE b.wantedAuthNo in (
+		select distinct(a.wantedAuthNo) FROM member_based_recommend as a where
+		a.memSeq = #{memSeq})
+		AND b.isTrue = 1
+		ORDER BY a.recRating desc
+		LIMIT 20
+		;
+	</select>
+
+	<!-- 상세정보 반환 -->
+	<select id="selectJobDetail"
+		resultType="com.kmu.worknet.job.domain.Job">
+		SELECT *
+		FROM worknet_detail_2
+		WHERE wantedAuthNo = #{wantedAuthNo}
+		;
+	</select>
+	<!-- 카테고리페이지에서 보여줄 테이블들의 간략한 정보 반환 -->
+	<select id="categoryDo"
+		resultType="com.kmu.worknet.job.domain.Job">
+		<include refid="simplePageView"></include>
+		<include refid="categorySearch"></include>
+		limit #{page.beginning}, #{page.pageRows}
+		;
+	</select>
+
+	<update id="updateJobDate" parameterType="String">
+		UPDATE worknet_detail_2 SET isTrue=0
+		WHERE receiptCloseDt <![CDATA[ < ]]>
+		#{today}
+		AND receiptCloseDt !='채용시까지';
+		;
+	
+	</update>
+	
+	<insert id="insertRating">
+		INSERT INTO job_rating
+		VALUES (#{map.wantedAuthNo},#{memSeq},#{map.ratingValue}, #{time})
+	</insert>
+	
+	<update id="updateRecRating">
+		UPDATE member_based_recommend 
+		SET recRating = #{map.ratingValue}
+		WHERE memSeq = #{memSeq}
+		AND wantedAuthNo = #{map.wantedAuthNo}; 
+	</update>
+	
+	<select id="ratingCheck" resultType="String">
+		SELECT count(*) count
+		FROM job_rating
+		WHERE wantedAuthNo = #{map.wantedAuthNo}
+		AND memSeq = #{memSeq}
+		;
+	</select>
+	
+	<update id="updateRating">
+		UPDATE job_rating 
+		SET 	rating = #{map.ratingValue}, 
+				time = #{time}
+		WHERE memSeq = #{memSeq}
+		AND wantedAuthNo = #{map.wantedAuthNo}
+		;
+	</update>
+	
+	<insert id="insertRatingActivity">
+		INSERT INTO member_activity(wantedAuthNo, sessionSeq, actionSeq)
+		VALUES(
+		#{map.wantedAuthNo}, 
+		(SELECT max(sessionSeq) FROM member_session WHERE memSeq = #{memSeq}), 
+		6)
+		;
+	</insert>
+	
+	<insert id="insertRatingReviseRating">
+		INSERT INTO member_activity(wantedAuthNo, sessionSeq, actionSeq)
+		VALUES(
+		#{map.wantedAuthNo}, 
+		(SELECT max(sessionSeq) FROM member_session WHERE memSeq = #{memSeq}), 
+		7)
+		;
+	</insert>
+	
+	<insert id="insertDetailActivity">
+		INSERT INTO member_activity(wantedAuthNo, sessionSeq, actionSeq, searchWord)
+		VALUES(
+		#{wantedAuthNo}, 
+		(SELECT max(sessionSeq) FROM member_session WHERE memSeq = #{memSeq}), 
+		#{kind}, 
+		#{searchWord})
+		;
+	</insert>
+	
+	<select id="selectJobBaseList" resultType="com.kmu.worknet.job.domain.Job">
+		select worknet_detail_2.* 
+		from job_based_recommend 
+		join worknet_detail_2 on job_based_recommend.targetItem = worknet_detail_2.wantedAuthNo 
+		and job_based_recommend.wantedAuthNo = #{wantedAuthNo} 
+		;
+	</select>
+	
+	<select id="jobBaseRatingCheck" resultType="String">
+		SELECT count(*) count
+		FROM job_based_recommend_rating
+		WHERE jobRecSeq = (SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{map.beforeWantedAuthNo} AND targetItem = #{map.wantedAuthNo})
+		AND memSeq = #{memSeq}
+		;
+	</select>
+	
+	<insert id="insertJobBaseRatingInsert">
+		INSERT INTO job_based_recommend_rating(memSeq, jobRecSeq, recRating, time)
+		VALUES (#{memSeq}, 
+		(SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{map.beforeWantedAuthNo} AND targetItem = #{map.wantedAuthNo}), 
+		#{map.ratingValue}, #{time})
+	</insert>
+	
+	<update id="updateJobBaseRating">
+		UPDATE job_based_recommend_rating 
+		SET 	recRating = #{map.ratingValue}, 
+				time = #{time}
+		WHERE memSeq = #{memSeq}
+		AND jobRecSeq = (SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{map.beforeWantedAuthNo} AND targetItem = #{map.wantedAuthNo})
+		;
+	</update>
+</mapper>

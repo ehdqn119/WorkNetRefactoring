@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/kmuworknet.iml" filepath="$PROJECT_DIR$/kmuworknet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/worknet/worknet/worknet.iml" filepath="$PROJECT_DIR$/worknet/worknet/worknet.iml" />
+    </modules>
+  </component>
+</project>

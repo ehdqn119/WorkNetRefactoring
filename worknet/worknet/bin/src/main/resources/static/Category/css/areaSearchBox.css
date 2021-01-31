@@ -1,0 +1,182 @@
+#category {
+    padding : 0px 30px 0px 30px;
+}
+
+.categorySearch {
+    border : 1px solid #ddd;
+    background-color : #ffffff;
+}
+
+.c_CategorySearch {
+    width : 50%;
+}
+
+.headCategory {
+    display: flex;
+    justify-content: space-around;
+    background-color : #ffffff;
+    border: 2px solid #ddd;
+}
+
+.c_CategorySearch > button {
+    height : 50px;
+    display: flex;
+    justify-content: center;
+    flex : 1;
+    border: 0;
+    border-bottom : 0px;
+    background-color: #ffffff;
+    font-size: 20px;
+    font-weight: bolder;
+    padding : 10px 10px;
+    margin: 0 auto;
+}
+
+.fa-map-marker-alt {
+    font-size: 28px;
+    color : #4385F4;
+    margin-right : 20px;
+}
+
+.fa-address-card {
+    font-size : 28px;
+    color : #4385F4;
+    margin-right : 20px;
+}
+
+.area > span {
+    color : #4385F4;
+}
+
+.field > span {
+    color : #4385F4;
+}
+
+
+.btnSubmit {
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.36);
+    border-color: #222;
+    background: #222;
+    min-width: 140px;
+    min-height: 69px;
+    margin-left : auto;
+    margin-right : 20px;
+    cursor:pointer;
+}
+
+.searchResultContainer {
+    line-height : 35px;
+    display : flex;
+    border: 1px solid #ddd;
+    height : 110px;
+    text-align: center;
+    padding: 20px 20px 20px;
+}
+
+
+#titleSearch {
+    border : 0;
+}
+
+.areaContainer {
+    display : none;
+    height : 400px;
+}
+
+.fieldContainer {
+    display : none;
+}
+
+.select {
+    display : block;
+    display : flex;
+}
+
+.areaSelect {
+    display : flex;
+    flex-wrap : wrap;
+    overflow : scroll;
+    width : 25%;
+    height : 300px;
+    margin-right: 50px;
+}
+
+.areaSelect::-webkit-scrollbar {
+    width: 3px;
+  }
+
+.areaSelect::-webkit-scrollbar-thumb {
+    width : 2px;
+    background-color : #f1eeee;
+}
+
+.areaSelect::-webkit-scrollbar-track {
+    background-color : white;
+}
+
+.areaCheckbox {
+    display : flex;
+    flex-direction : column;
+    width : 55%;
+    height : 300px;
+    justify-content: space-between;
+}
+
+.area_btn {
+    margin-left : auto;
+    margin-top: 15px;
+}
+
+li {
+    list-style:none;
+}
+
+.areaSelect > button {
+    padding-left: 14px;
+    width: 50%;
+    height: 30px;
+    color: #222;
+    font-size: 13px;
+    letter-spacing: -1px;
+    line-height: 30px;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.areaSelect > button:hover {
+    color : blue;
+}
+
+
+.checkbox_layout > div {
+
+    width: 33.3%;
+    margin-bottom : 30px;   
+}
+
+.checkbox_layout {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: auto;
+    margin-top: 30px;
+}
+
+
+
+
+
+/* 안에 버튼   */
+
+.area_btn > button {
+    padding-right: 14px;
+    height: 18px;
+    color: #949494;
+    font-size: 12px;
+    letter-spacing: -1px;
+    line-height: 18px;
+    background-color: white;
+    border:0;
+}

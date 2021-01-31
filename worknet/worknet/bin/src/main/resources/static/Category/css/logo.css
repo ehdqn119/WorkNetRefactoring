@@ -1,0 +1,82 @@
+.icon-10 {
+    color: #26d926;
+    fill: #4385F4;;
+}
+
+.icon-15 {
+    color: #26d9d9;
+    fill: #4385F4;
+}
+
+.icon-26 {
+    color: #d926b5;
+    fill: #4385F4;
+}
+
+.icon-13 {
+    color: #26d991;
+    fill: #4385F4;
+}
+
+
+.ir {
+    display: block;
+    overflow: visible;
+    padding: 0 0 100%;
+    position: relative;
+    height: 0;
+    width: 100%;
+}
+
+.soc a {
+    position: relative;
+    height: 96px;
+    height: 9.6rem;
+    width: 96px;
+    width: 9.6rem;
+}
+
+.soc li {
+    display: inline-block;
+    margin: 12px;
+    margin: 1.2rem;
+}
+
+
+.soc li {
+    font-size: 0;
+    list-style: none;
+    width: 60px;
+    margin : 0 0 0 0;
+}
+
+.soc li:hover {
+    animation-duration: 1.5s;
+    animation-name: Hover;
+}
+
+.soc {
+    margin-left : auto;
+}
+
+.copyright {
+    display: flex;
+}
+
+
+
+/* 애니메이션 라인 */
+
+
+@keyframes Hover {
+    
+    from {
+        transform: scale(1.25);
+        transition: background-color .5s, transform .5s ease-out
+    }
+
+    to {    
+        transform: scale(1);
+    }
+
+}

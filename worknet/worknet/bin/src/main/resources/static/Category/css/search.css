@@ -1,0 +1,248 @@
+html, body {
+    margin : 0 0 0 0;
+    padding : 0 0 0 0;
+    background-color : #F8F8F8;
+    box-sizing : border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+@font-face {
+    font-family: 'Nanum Gothic', sans-serif;
+    src:url("../fonts/NanumGothic-Regular.ttf");
+}
+
+.logoText {
+    margin-top : 0px;
+    letter-spacing: 7px;
+}
+
+
+.searchBar {
+    border-left : 2px solid #ddd;
+    border-right : 0px;
+    border-top : 0px;
+    border-bottom: 0px;
+    width : 50%;
+}
+
+.headCategory input {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size : 14px;
+    padding: 0px 0px 0px 10px;
+}
+
+.headCategory input:focus {
+    outline:none;
+}
+
+
+#paddingBox {
+    display : flex;
+    height : 81px;
+    padding: 30px 20px 10px 30px;
+    margin: 0px 30px 30px 30px;
+}
+
+#side {
+    display : flex;
+    flex-direction: column;
+    background-color :#4385F4;
+    color : white;
+    padding: 30px 30px 10px 30px;
+}
+
+.header {
+    width: calc(100% - 283px);
+}
+
+#sideHeader {
+    display : flex;
+    max-width : 221px;
+    margin-bottom: 50px;
+}
+
+#hamburger {
+    margin-top: 3px;  
+    margin-left : auto;
+    cursor: pointer;
+}
+
+#hamburger > div {
+    width : 24px;
+    height : 3px;
+    background-color:white;
+    margin-bottom: 5px;
+}
+
+
+
+
+#rheader {
+    display : flex;
+    height : 81px;
+    width:100%;
+}
+
+
+#search {
+    border-right : 0px;
+    border-left : 0px;
+    border-top : 0px;
+    border-bottom : 0px;
+    border : none;
+    min-width : 700px;
+}
+
+
+#login {
+    margin-left : auto;
+    display : flex;
+}
+
+#logout {
+    font-size: 14px;
+    color : #696767;
+}
+
+#searchContent {
+    margin-right : 30px;
+    font-weight: bolder;
+    font-size: 14px;
+    color : #696767;
+}
+#sideMenuLayout {
+    height: 680px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.fa-angle-right {
+    width: 10px;
+    height : 10px;
+    color : white;
+}
+
+.sideMeenuLayoutRow {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.sideMeenuLayoutRow > span {
+    margin-left : 50px;
+}
+
+
+.fa-search {
+    color : #4385F4;
+    margin-top : 33px;
+    margin-right : 20px;
+}
+
+.fa-sign-out-alt {
+    font-size : 20px;
+    color : #4385F4;
+}
+
+#sideSpaceLayout {
+    display : flex;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.resultTitle {
+    color: #736c6c;
+    font-weight : bolder;
+    margin: 30px 30px 30px 30px;
+    font-size: 15px;
+
+}
+
+
+.contentContainer {
+    background-color : #ffffff;
+    margin: 30px 30px 30px 30px;
+    padding: 20px 20px 20px 20px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border : 1px solid #ddd;
+}
+
+
+
+
+.contentBox {
+    min-height : inherit;
+}
+
+.companyName {
+    font-size : 22px;
+    color : black;
+}
+
+.companyDetail {
+    color : black;
+}
+
+.companyUrl {
+    color : #4385F4;
+}
+
+.classification {
+    display:flex;
+    color : black;
+}
+
+.classification > div{
+    border-radius : 20%;
+    margin-right : 20px;
+    width : 87px;
+    height : 25px;
+    background-color : #F2F2F2;
+    text-align : center;
+} 
+
+
+#footer {
+    width:100%;
+    margin-top:auto;
+}
+
+.inner {
+    display:flex;
+    justify-content: space-between;
+}
+
+
+.footerFirstLi {
+    margin-right : 40px;
+}
+
+
+.fa {
+    transform: scale(1.5,1);
+}
+
+
+.fa-hotjar {
+    margin-left : 2px;
+}
+
+.fa-comment-dots {
+    margin-left : 1px;
+}
+

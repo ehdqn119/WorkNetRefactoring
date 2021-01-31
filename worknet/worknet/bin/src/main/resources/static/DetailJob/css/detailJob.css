@@ -1,0 +1,83 @@
+.mainDetailJobContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+.divisionContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: end;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.informationContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    margin-bottom: 100px;
+}
+.columnInformationContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    border-bottom: solid 1px #ddd;
+    padding : 10px;
+}
+
+
+.columnInformationContainer3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    border-bottom: solid 1px #ddd;
+}
+
+
+.columnInformationContainer > span{
+    font-size: 17px;
+    font-weight: 550;
+}
+.columnInformationContainer > p{
+    padding-left: 15px;
+}
+
+
+.isolationContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-top : 40px;
+}
+
+.isolationContainer2{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-top : 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.isolationContainer > h2 {
+    text-align: start;
+}
+
+.columnInformationContainer p {
+    color : #8b8a8a;   
+}

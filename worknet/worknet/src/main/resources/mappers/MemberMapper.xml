@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kmu.worknet.member.mappers.MemberMapper">
+	<!-- 멤버 아이디 검증 -->
+	<select id="findByuser" resultType="com.kmu.worknet.member.domain.MemberDetails">
+		SELECT *
+		FROM member
+		WHERE memId = #{username}
+		;
+	</select>
+	<select id="findByEmail" resultType="com.kmu.worknet.member.domain.Member">
+		SELECT email
+		FROM member
+		WHERE email = #{memberEmail}
+		;
+	</select>
+	<insert id="signUp">
+		INSERT INTO MEMBER(memId, memPw, authoritie, email, name, date, gender, phone)
+		VALUES ( 
+					#{memId}, 
+					#{memPw}, 
+					'ROLE_MEMBER', 
+					#{email}, 
+					#{name}, 
+					#{date}, 
+					#{gender}, 
+					#{phone}
+				)
+		;
+	</insert>
+	<select id="findByMemberSeq" resultType="int">
+		SELECT memSeq
+		FROM member
+		WHERE memId = #{memid}
+		;
+	</select>
+	<insert id="sessionSave">
+		INSERT INTO member_session(memSeq, startSession, stopSession)
+		VALUES(
+			#{memId},
+			now(),
+            DATE_ADD(NOW(), INTERVAL 20 MINUTE)
+		);
+	</insert>
+	<update id="updateSessionStopTime">
+		UPDATE member_session SET stopSession = DATE_ADD(NOW(), INTERVAL 20 MINUTE)
+			WHERE memSeq = #{memSeq}
+			AND sessionSeq = (SELECT sessionSeq
+							FROM (
+								SELECT max(sessionSeq) as sessionSeq
+								FROM member_session
+								WHERE memSeq = #{memSeq}
+								)SUB
+							);
+	</update>
+	<select id="findByPass" resultType="com.kmu.worknet.member.domain.Member">
+		SELECT *
+		FROM member
+		WHERE memId = #{member.memId} and email = #{member.email}
+		; 
+	</select>
+	<update id="updatePass">
+		UPDATE member 
+			SET memPw = #{member.memPw}
+			WHERE memId = #{member.memId} AND email = #{member.email}
+			;
+	</update>
+</mapper>

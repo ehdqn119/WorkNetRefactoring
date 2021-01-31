@@ -1,0 +1,61 @@
+ul {
+    list-style : none;
+    display : flex;
+}
+
+
+li.star > i.fa {
+    color: #ccc;
+    font-size : 50px;
+}
+
+i.hover { 
+    color : rgba(182, 182, 73, 0.747)!important;
+}
+
+
+i.click {
+    color : rgba(182, 182, 73, 0.747)!important;
+}
+
+.text-message {
+    display : inline;
+    width: inherit;
+    margin-left: auto;
+    margin-top: 3.5px;
+}
+
+#stars {
+    padding-inline-start: 0;
+}
+
+
+.ratingTitle {
+    text-align: center;
+}
+
+
+.success-box {
+    display : flex;
+}
+
+
+
+.submitContainer {
+    display: flex;
+}
+
+.ratingSubmit {
+    margin-left : auto;
+    border: 0;
+    background-color: white;
+    width: 100px;
+    text-align: end;
+    font-size: 18px;
+}
+
+.text-center {
+	margin-bottom : 20px;
+}
+
+

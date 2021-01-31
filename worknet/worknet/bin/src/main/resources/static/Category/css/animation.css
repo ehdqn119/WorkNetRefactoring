@@ -1,0 +1,39 @@
+.none {
+    display : none;
+}
+
+.marginLeft {
+    margin-left : 0;
+}
+
+.width {
+    width: 5px;
+}
+
+.headerWidth {
+    width : 100%;
+}
+
+
+
+#magnificPopup {
+    cursor: pointer;
+}
+
+
+.goHome {
+    cursor : pointer;
+}
+
+.refreshs {
+    cursor : pointer;
+}
+
+.newPage {
+    cursor : pointer;
+}
+
+.recommand {
+    cursor : pointer;
+}
+

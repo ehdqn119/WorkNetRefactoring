@@ -1,0 +1,19 @@
+.white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width:auto;
+    max-width: 800px;
+    margin: 20px auto;
+    display : flex;
+    flex-direction: column;
+    text-align : center;
+    justify-content: space-between;
+    height : 600px;
+  }
+
+  .white-popup > div {
+    text-align : center;
+  }
+
+
