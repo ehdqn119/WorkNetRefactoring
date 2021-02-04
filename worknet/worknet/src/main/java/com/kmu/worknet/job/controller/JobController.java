@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/jobs")
 @RequiredArgsConstructor
 public class JobController {
-	
+	////
 	private final String DEFAULT_KIND = "false";
 	private final JobService jobService;
 	private final MemberDetailService memberDetailService;
