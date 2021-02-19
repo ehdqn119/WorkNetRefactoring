@@ -404,7 +404,7 @@
 				            	<img class="comandSlider__item_photo" src="/DetailJob/img/midSizeCompany.svg" alt="">
 				            </div>
 				            <div class="animation-card_content">
-				                <a href="/jobs/detailJob?wantedAuthNo=${rec.wantedAuthNo}&Kind=3&beforeWantedAuthNo=${job.wantedAuthNo}" style="text-decoration: none; color: black;"><h4 class="animation-card_content_title title-2">${rec.corpNm}</h4></a>
+				                <a href="/jobs/detailJob?wantedAuthNo=${rec.wantedAuthNo}&kind=3&beforeWantedAuthNo=${job.wantedAuthNo}" style="text-decoration: none; color: black;"><h4 class="animation-card_content_title title-2">${rec.corpNm}</h4></a>
 				                <p class="animation-card_content_description p-2">${rec.wantedTitle}</p>
 				                <p class="animation-card_content_city">${rec.workRegion}</p>
 				            </div>    

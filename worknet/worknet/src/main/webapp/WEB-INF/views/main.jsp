@@ -68,7 +68,7 @@
 	<div class="sliderLayoutContainer wh">
 <!-- 		<div class="tarkikComandSlider"> -->
 		<c:forEach var="rec" items="${recSet.recommendList}" varStatus="status">
-			  <article class="comandSlider__item"  onclick="window.location.href='/jobs/detailJob?wantedAuthNo=${rec.wantedAuthNo}&Kind=2'">
+			  <article class="comandSlider__item"  onclick="window.location.href='/jobs/detailJob?wantedAuthNo=${rec.wantedAuthNo}&kind=2'">
 			    <header>
 			      <p class="comandSlider__item_name"><a style="color:white;">${rec.corpNm}</a></p>
 			      <p class="comandSlider__item_contact"><span>구인 제목</span>${rec.wantedTitle}</p>
@@ -150,7 +150,7 @@
 	<h1 class="sliderTitle mainMarginSize" >신규 등록 공고</h1>
 	<div class="sliderLayoutContainer">
 	<c:forEach var="jobList" items="${jobs}" varStatus="status">
-		<div class="twoRowcontentContainer"  onclick="window.location.href='/jobs/detailJob?wantedAuthNo=${jobList.wantedAuthNo}&Kind=1'">
+		<div class="twoRowcontentContainer"  onclick="window.location.href='/jobs/detailJob?wantedAuthNo=${jobList.wantedAuthNo}&kind=1'">
 			<div class="newContentContainer">
 				<div class="companyName">
 					${jobList.corpNm}

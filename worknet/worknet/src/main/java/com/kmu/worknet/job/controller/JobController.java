@@ -1,8 +1,11 @@
 package com.kmu.worknet.job.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.kmu.worknet.job.domain.Page;
+import com.kmu.worknet.job.domain.SearchWord;
+import com.kmu.worknet.job.domain.testDomain;
+import com.kmu.worknet.job.service.JobService;
+import com.kmu.worknet.member.service.MemberDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,14 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kmu.worknet.job.domain.Page;
-import com.kmu.worknet.job.domain.SearchWord;
-import com.kmu.worknet.job.domain.testDomain;
-import com.kmu.worknet.job.mappers.testMapper;
-import com.kmu.worknet.job.service.JobService;
-import com.kmu.worknet.member.service.MemberDetailService;
-
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/jobs")
@@ -42,7 +39,7 @@ public class JobController {
 			ModelAndView mav,
 			Authentication authentication
 			) throws Exception  {
-		page.setTotalBoard(jobService.selectToalBoard());
+		page.setTotalBoard(jobService.selectTotalBoard());
 		mav.addObject("page", page);
 		mav.addObject("jobs", jobService.selectJobList(page));
 		Map<String, Object> jobs = new HashMap<String, Object>();
@@ -55,7 +52,7 @@ public class JobController {
 	
 	@GetMapping("/detailJob") // 상세조회 // wantedAuthNo = KF11192005110001 test 용도
 	public ModelAndView detailJob(
-			@RequestParam(name = "Kind") String kind, // 이걸로 판별 모든값
+			@RequestParam(name = "kind") String kind, // 이걸로 판별 모든값
 			@RequestParam(name = "wantedAuthNo") String wantedAuthNo,
 			@RequestParam(name = "beforeWantedAuthNo", defaultValue = "null") String beforeWantedAuthNo,
 			ModelAndView mav, 

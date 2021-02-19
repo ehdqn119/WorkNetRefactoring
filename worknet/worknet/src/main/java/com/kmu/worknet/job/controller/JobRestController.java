@@ -1,56 +1,50 @@
 package com.kmu.worknet.job.controller;
 
-import java.util.Map;
+import com.kmu.worknet.job.rating.service.Assessment;
+import com.kmu.worknet.job.rating.service.RatingService;
+import org.apache.ibatis.binding.BindingException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.kmu.worknet.job.service.JobService;
-import com.kmu.worknet.member.service.MemberDetailService;
-
-import lombok.RequiredArgsConstructor;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/jobs")
-@RequiredArgsConstructor
 public class JobRestController {
-	
-	private final JobService jobService;
-	private final MemberDetailService memberDetailService; 
+
+	private final RatingService ratingService;
+
+	public JobRestController(RatingService ratingService){
+		this.ratingService = ratingService;
+	}
+	// 998395287
 
 	@PostMapping("/rating")
-	public String rating(
-			@RequestBody Map<String,Object> map,
-			Authentication authentication
-			) throws Exception {
-		int memSeq = memberDetailService.findByMemberSeq(authentication.getName());
-		if(map.get("Kind").equals("1") || map.get("Kind").equals("4")) {
-			if(jobService.ratingCheck(map, memSeq).equals("0")) {
-				jobService.insertRating(map, memSeq);
-				jobService.insertRatingActivity(map, memSeq);
-			}else {
-				jobService.updateRating(map, memSeq);
-				jobService.insertRatingReviseRating(map, memSeq);
-			}
-		}else if(map.get("Kind").equals("2")) {	
-			jobService.updateRecRating(map, memSeq);
-		}else if(map.get("Kind").equals("3")) {
-			if(jobService.jobBaseRatingCheck(map, memSeq).equals("0")) {
-				
-				jobService.insertJobBaseRatingInsert(map, memSeq);
-				jobService.insertRatingActivity(map, memSeq);
-			}else {
-				jobService.updateJobBaseRating(map, memSeq);
-				jobService.insertRatingReviseRating(map, memSeq);
-			}
-			
-		}
+	public String rating(@RequestBody @Valid Assessment assessment) {
+		ratingService.jobRating(assessment);
 		return "소중한 별점 감사합니다."; 
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public void getException(MethodArgumentNotValidException exception){
+		System.out.println("@@@@@@ validation @@@@@");
+		System.out.println(exception.getMessage());
+		System.out.println(exception.getClass());
+	}
+
+	@ExceptionHandler(BindingException.class)
+	public void getException(BindingException exception){
+		System.out.println("@@@@@@ security @@@@@");
+		System.out.println(exception.getMessage());
+		System.out.println(exception.getClass());
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public void getException(DataIntegrityViolationException exception){
+		System.out.println("@@@@@@ db @@@@@");
+		System.out.println("@@@@@@@@@@" + exception);
+		System.out.println("@@@@@@@@@@" + exception.getClass());
 	}
 	
 }
