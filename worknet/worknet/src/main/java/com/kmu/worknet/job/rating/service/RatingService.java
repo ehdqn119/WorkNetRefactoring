@@ -2,14 +2,17 @@ package com.kmu.worknet.job.rating.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class RatingService {
+public class RatingService{
 
     private final RatingFactory ratingFactory;
-
+    // 998395287
+    @Transactional
     public void jobRating(Assessment assessment){
-        ratingFactory.getEvaluation(assessment).evaluate(assessment);
+        Evaluation evaluation = ratingFactory.getEvaluation(assessment);
+        evaluation.evaluate(assessment);
     }
 }

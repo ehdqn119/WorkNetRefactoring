@@ -6,12 +6,15 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserBasedEvaluationImpl implements Evaluation {
+
     private final RatingRepository ratingRepository;
 
-
     @Override
-    public boolean checkExistRating(Assessment assessment) {
-        return ratingRepository.userBaseRatingCheck(assessment) == 0;
+    public boolean validation(Assessment assessment) {
+        if (!ratingRepository.selectExistWantedAuthNo(assessment)) {
+            throw new NullPointerException();
+        }
+        return ratingRepository.userBaseRatingCheck(assessment);
     }
 
     @Override

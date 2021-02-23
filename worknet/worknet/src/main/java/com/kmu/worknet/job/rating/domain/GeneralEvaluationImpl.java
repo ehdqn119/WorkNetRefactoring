@@ -7,13 +7,16 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class GeneralEvaluationImpl implements Evaluation {
+
     private final RatingRepository ratingRepository;
 
     @Override
-    public boolean checkExistRating( Assessment assessment) {
-        return ratingRepository.ratingCheck(assessment) == 0;
+    public boolean validation(Assessment assessment) {
+        if (ratingRepository.selectExistWantedAuthNo(assessment)){
+            throw new NullPointerException();
+        }
+        return ratingRepository.ratingCheck(assessment);
     }
-
     @Override
     public void insertRating(Assessment assessment) {
         ratingRepository.insertRating(assessment,Long.toString(System.currentTimeMillis()));

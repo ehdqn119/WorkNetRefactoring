@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kmu.worknet.job.rating.domain.RatingRepository">
+
+    <insert id="insertRatingActivity">
+        INSERT INTO member_activity(wantedAuthNo, sessionSeq, actionSeq)
+        VALUES(
+                  #{wantedAuthNo},
+                  (SELECT max(sessionSeq) FROM member_session WHERE memSeq = #{idx}),
+                  6)
+        ;
+    </insert>
+    <insert id="insertRatingReviseRating">
+        INSERT INTO member_activity(wantedAuthNo, sessionSeq, actionSeq)
+        VALUES(
+                  #{wantedAuthNo},
+                  (SELECT max(sessionSeq) FROM member_session WHERE memSeq = #{idx}),
+                  7)
+        ;
+    </insert>
+
+
+    <select id="selectExistWantedAuthNo" resultType="boolean">
+        SELECT EXISTS(select wantedAuthNo
+        from worknet_detail_2
+        where wantedAuthNo = #{wantedAuthNo}) isWantedAuthNo;
+    </select>
+
+    <select id="ratingCheck" resultType="int">
+        SELECT EXISTS(SELECT wantedAuthNo
+        FROM job_rating
+        WHERE wantedAuthNo = #{wantedAuthNo}
+          AND memSeq = #{idx})
+        ;
+    </select>
+
+    <select id="userBaseRatingCheck" resultType="boolean">
+        SELECT NOT EXISTS(SELECT recRating
+        FROM member_based_recommend
+        WHERE wantedAuthNo = #{wantedAuthNo});
+    </select>
+
+    <select id="jobBaseRatingCheck" resultType="boolean">
+        SELECT EXISTS(SELECT jobRecSeq
+        FROM job_based_recommend_rating
+        WHERE jobRecSeq = (SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{beforeWantedAuthNo} AND targetItem = #{wantedAuthNo})
+        AND memSeq = #{idx})
+        ;
+    </select>
+
+
+
+
+    <insert id="insertRating">
+        INSERT INTO job_rating
+        VALUES (#{assessment.wantedAuthNo},#{assessment.idx},#{assessment.ratingValue}, #{time})
+    </insert>
+
+    <update id="updateRating">
+        UPDATE job_rating
+        SET 	rating = #{assessment.ratingValue},
+               time = #{time}
+        WHERE memSeq = #{assessment.idx}
+          AND wantedAuthNo = #{assessment.wantedAuthNo}
+        ;
+    </update>
+
+
+
+    <update id="updateRecRating">
+        UPDATE member_based_recommend
+        SET recRating = #{ratingValue}
+        WHERE memSeq = #{idx}
+        AND wantedAuthNo = #{wantedAuthNo};
+    </update>
+
+
+
+    <insert id="insertJobBaseRatingInsert">
+        INSERT INTO job_based_recommend_rating(memSeq, jobRecSeq, recRating, time)
+        VALUES (#{assessment.idx},
+                (SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{assessment.beforeWantedAuthNo} AND targetItem = #{assessment.wantedAuthNo}),
+                #{assessment.ratingValue}, #{time})
+    </insert>
+
+    <update id="updateJobBaseRating">
+        UPDATE job_based_recommend_rating
+        SET 	recRating = #{assessment.ratingValue},
+               time = #{time}
+        WHERE memSeq = #{assessment.idx}
+          AND jobRecSeq = (SELECT jobRecSeq FROM job_based_recommend WHERE wantedAuthNo = #{assessment.beforeWantedAuthNo} AND targetItem = #{assessment.wantedAuthNo})
+        ;
+    </update>
+
+</mapper>

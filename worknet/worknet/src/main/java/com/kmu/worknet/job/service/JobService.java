@@ -9,8 +9,6 @@ import java.util.Map;
 
 public interface JobService {
 
-	////////////////////////////////////////////////////////////////////////
-
 	public List<Job> selectJobList(Page page) throws Exception;
 
 	public List<Job> selectRecomandJob(int memSeq) throws Exception;
@@ -25,11 +23,7 @@ public interface JobService {
 
 	public int selectCategoryTotalBoard(SearchWord allList) throws Exception;
 
-
 	public void updateRecRating(Map<String, Object> map, int memSeq) throws Exception;
-
-
-/////////////////////////////////////////////////////////////////////////
 
 	public void insertDetailActivity(String wantedAuthNo, String kind, int memSeq, String searchWord) throws Exception;
 
