@@ -188,7 +188,7 @@
            	<c:forEach var="jobList" items="${jobs}" varStatus="status">
 				<div class="contentContainer">
 					<div class="companyName">
-						<a href="/jobs/detailJob?wantedAuthNo=${jobList.wantedAuthNo}&Kind=4&${url}"><span>${jobList.corpNm}</span></a>
+						<a href="/jobs/detailJob?wantedAuthNo=${jobList.wantedAuthNo}&kind=4&${url}"><span>${jobList.corpNm}</span></a>
 					</div>
 					<div class="companyDetail">${jobList.wantedTitle}</div>
 					<div class="companyDetail">${jobList.salTpNm}</div>

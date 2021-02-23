@@ -1,6 +1,11 @@
 package com.kmu.worknet.member.webConfig;
 
+import com.kmu.worknet.member.service.MemberDetailService;
+import com.kmu.worknet.member.service.MemberLoginFailHandler;
+import com.kmu.worknet.member.service.MemberLoginSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -14,13 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import com.kmu.worknet.member.service.MemberDetailService;
-import com.kmu.worknet.member.service.MemberLoginFailHandler;
-import com.kmu.worknet.member.service.MemberLoginSuccessHandler;
-
-import lombok.RequiredArgsConstructor;
-
+@Profile("!test")
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
