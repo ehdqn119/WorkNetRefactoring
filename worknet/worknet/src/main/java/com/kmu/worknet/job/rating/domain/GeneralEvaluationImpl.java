@@ -12,15 +12,16 @@ public class GeneralEvaluationImpl implements Evaluation {
 
     @Override
     public boolean validation(Assessment assessment) {
-        if (ratingRepository.selectExistWantedAuthNo(assessment)){
-            throw new NullPointerException();
+        if (!ratingRepository.selectExistWantedAuthNo(assessment)){
+            throw new IllegalArgumentException();
         }
-        return ratingRepository.ratingCheck(assessment);
+        return !ratingRepository.ratingCheck(assessment);
     }
     @Override
     public void insertRating(Assessment assessment) {
         ratingRepository.insertRating(assessment,Long.toString(System.currentTimeMillis()));
         ratingRepository.insertRatingActivity(assessment);
+
     }
 
     @Override
