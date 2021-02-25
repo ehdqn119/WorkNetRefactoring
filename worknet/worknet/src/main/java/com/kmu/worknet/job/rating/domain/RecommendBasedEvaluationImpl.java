@@ -11,10 +11,10 @@ public class RecommendBasedEvaluationImpl implements Evaluation {
 
     @Override
     public boolean validation(Assessment assessment) {
-        if (ratingRepository.selectExistWantedAuthNo(assessment)){
-            throw new NullPointerException();
+        if (!ratingRepository.selectExistWantedAuthNo(assessment)){
+            throw new IllegalArgumentException();
         }
-        return ratingRepository.jobBaseRatingCheck(assessment);
+        return !ratingRepository.jobBaseRatingCheck(assessment);
     }
 
     @Override

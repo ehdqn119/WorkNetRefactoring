@@ -28,7 +28,7 @@
         where wantedAuthNo = #{wantedAuthNo}) isWantedAuthNo;
     </select>
 
-    <select id="ratingCheck" resultType="int">
+    <select id="ratingCheck" resultType="boolean">
         SELECT EXISTS(SELECT wantedAuthNo
         FROM job_rating
         WHERE wantedAuthNo = #{wantedAuthNo}

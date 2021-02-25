@@ -12,9 +12,9 @@ public class UserBasedEvaluationImpl implements Evaluation {
     @Override
     public boolean validation(Assessment assessment) {
         if (!ratingRepository.selectExistWantedAuthNo(assessment)) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
-        return ratingRepository.userBaseRatingCheck(assessment);
+        return !ratingRepository.userBaseRatingCheck(assessment);
     }
 
     @Override
